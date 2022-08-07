@@ -123,7 +123,7 @@ def make_deploy_file(args, _):
         0,
         {
             "appdata-name": GLib.Variant.new_string(""),
-            "deploy-version": GLib.Variant.new_int32(0),
+            "deploy-version": GLib.Variant.new_int32(4),
             "appdata-license": GLib.Variant.new_string(""),
             "appdata-summary": GLib.Variant.new_string(""),
             "timestamp": GLib.Variant.new_uint64(0),
