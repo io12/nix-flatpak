@@ -6,11 +6,13 @@ let
     runCommand flatpak cacert writeText stdenvNoCC writeShellScript mount
     util-linux lib unixtools python3Packages;
   inherit (builtins) substring readFile toFile concatMap hashFile;
-  inherit (pkgs.writers) writePython3Bin;
+  inherit (pkgs.rustPlatform) buildRustPackage;
 
-  ostreeTool = writePython3Bin "ostree-tool" {
-    libraries = with pkgs.python3Packages; [ pygobject3 ];
-  } ./ostree-tool.py;
+  ostreeTool = buildRustPackage {
+    name = "ostree-tool";
+    src = ./ostree-tool;
+    cargoLock = { lockFile = ./ostree-tool/Cargo.lock; };
+  };
   runOstreeTool = name: cmd:
     runCommand name { nativeBuildInputs = [ ostreeTool ]; } cmd;
   parseOstreeObject = object:
